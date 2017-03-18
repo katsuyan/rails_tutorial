@@ -6,6 +6,11 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
 
+  test "should redirect index when not logged in" do
+    get users_path
+    assert_redirected_to login_url
+  end
+
   test "unsuccessful edit" do
     log_in_as(@user)
     get edit_user_path(@user)
