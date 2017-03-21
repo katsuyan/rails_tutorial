@@ -19,4 +19,11 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
       assert_match micropost.content, response.body
     end
   end
+
+  test "user statistic display" do
+    get user_path(@user)
+    assert_template 'users/show'
+    assert_select '#following', text: "#{@user.following.count}"
+    assert_select '#followers', text: "#{@user.followers.count}"
+  end
 end
